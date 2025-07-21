@@ -1,0 +1,15 @@
+PyYAML==6.0.2
+pydantic==2.11.7
+azure-identity==1.23.0
+azure-keyvault==4.2.0
+azure-search-documents==11.5.3
+azure-storage-blob==12.26.0
+pymongo==4.13.2
+langchain==0.3.26
+langchain-openai
+langchain-community==0.3.26
+langchain-mcp-adapters==0.1.8
+langgraph==0.5.2
+streamlit==1.46.1
+opencensus-ext-azure==1.1.15
+opencensus-ext-logging==0.1.1
