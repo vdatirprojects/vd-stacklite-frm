@@ -8,7 +8,7 @@ class MongoDbConnector:
     def __init__(self, mongo_uri: str, mongo_config: dict):
         self.uri = mongo_uri
         self.database_name = mongo_config["database"]
-        
+
     def __enter__(self):
         """
         Open the connection to MongoDB.
@@ -28,7 +28,7 @@ class MongoDbConnector:
 
     def create_collection(self, collection_name):
         try:
-            collecton = self.db_handle[collection_name]  
+            collecton = self.db_handle[collection_name]
             logger.info(f"{collection_name} Collection created")
             return collecton
 
@@ -37,7 +37,7 @@ class MongoDbConnector:
 
     def create_view(self, view_name: str, base_collection: str, pipeline: list):
         try:
-            view = self.db_handle.create_collection(  
+            view = self.db_handle.create_collection(
                 view_name, viewOn=base_collection, pipeline=pipeline
             )
             logger.info(f"{view_name} View created")
@@ -49,7 +49,7 @@ class MongoDbConnector:
     def select(self, collection_name: str, query: dict):
         try:
             query = query or {}
-            return list(self.db_handle[collection_name].find(query))  
+            return list(self.db_handle[collection_name].find(query))
 
         except Exception as e:
             logger.exception(f"Error in select operation : {e}")
@@ -60,13 +60,13 @@ class MongoDbConnector:
         """
         try:
             if isinstance(documents, list):
-                result = self.db_handle[collection_name].insert_many(documents)  
+                result = self.db_handle[collection_name].insert_many(documents)
                 logger.info(
                     f"{len(result.inserted_ids)} documents inserted successfully."
                 )
                 return result.inserted_ids
             else:
-                result = self.db_handle[collection_name].insert_one(documents)  
+                result = self.db_handle[collection_name].insert_one(documents)
                 logger.info("1 document inserted successfully.")
                 return result.inserted_id
         except Exception as e:
@@ -77,7 +77,7 @@ class MongoDbConnector:
         Delete documents from a collection matching the query.
         """
         try:
-            result = self.db_handle[collection_name].delete_many(query)  
+            result = self.db_handle[collection_name].delete_many(query)
             logger.info(f"{result.deleted_count} documents deleted successfully.")
             return result.deleted_count
         except Exception as e:
@@ -94,7 +94,7 @@ class MongoDbConnector:
         Update documents in a collection matching the query with the specified values.
         """
         try:
-            result = self.db_handle[collection_name].update_many(  
+            result = self.db_handle[collection_name].update_many(
                 query, {"$set": update_values}, upsert=upsert
             )
             logger.info(f"{result.modified_count} documents updated successfully.")
