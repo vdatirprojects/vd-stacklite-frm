@@ -7,7 +7,7 @@ logger = get_logger(__name__)
 
 
 class LangChainOpenAIInterface:
-    def __init__(self, openai_api_key: str = None):
+    def __init__(self, openai_api_key: str = ""):
         if "OPENAI_API_KEY" in os.environ:
             logger.warning(
                 "OPENAI_API_KEY is set in environment variables, using it instead of the provided key."
